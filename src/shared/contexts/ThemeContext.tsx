@@ -8,14 +8,11 @@ import {
 import { ThemeProvider } from '@mui/material';
 import { DarkTheme, LightTheme } from '../themes';
 import { Box } from '@mui/system';
+import { IHtmlComponentsProps } from '../types';
 
 interface IThemeContext {
   themeName: 'light' | 'dark';
   toggleTheme: () => void;
-}
-
-interface IHtmlComponentsProps {
-  children: React.ReactNode;
 }
 
 const ThemeContext = createContext({} as IThemeContext);
