@@ -4,7 +4,7 @@ import {
   ListItemIcon,
   ListItemText,
 } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
+import { useMatch, useNavigate, useResolvedPath } from 'react-router-dom';
 import { IListItemLinkProps } from '../../types';
 
 export const ListItemLink: React.FC<IListItemLinkProps> = ({
@@ -15,13 +15,16 @@ export const ListItemLink: React.FC<IListItemLinkProps> = ({
 }) => {
   const navigate = useNavigate();
 
+  const resolvedPath = useResolvedPath(to); // hook para encontrar a rota
+  const match = useMatch({ path: resolvedPath.pathname, end: false }); // hook para verificar se a rota está selecionada
+
   const handleClick = () => {
     navigate(to);
     onClick && onClick();
   };
 
   return (
-    <ListItemButton onClick={handleClick}>
+    <ListItemButton selected={!!match} onClick={handleClick}>
       <ListItemIcon>
         <Icon>{icon}</Icon>
       </ListItemIcon>
