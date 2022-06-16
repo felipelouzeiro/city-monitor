@@ -2,17 +2,14 @@ import {
   Avatar,
   Divider,
   Drawer,
-  Icon,
   List,
-  ListItemButton,
-  ListItemIcon,
-  ListItemText,
   useMediaQuery,
   useTheme,
 } from '@mui/material';
 import { Box } from '@mui/system';
 import { useDrawerContext } from '../../contexts';
 import { IHtmlComponentsProps } from '../../types';
+import { ListItemLink } from './LIstItemLink';
 
 export const MenuLateral: React.FC<IHtmlComponentsProps> = ({ children }) => {
   const theme = useTheme();
@@ -48,12 +45,12 @@ export const MenuLateral: React.FC<IHtmlComponentsProps> = ({ children }) => {
           <Divider />
           <Box flex={1}>
             <List component="nav">
-              <ListItemButton>
-                <ListItemIcon>
-                  <Icon>home</Icon>
-                </ListItemIcon>
-                <ListItemText primary="Página inicial" />
-              </ListItemButton>
+              <ListItemLink
+                icon="home"
+                label="Página inicial"
+                to="/pagina-inicial"
+                onClick={smDown ? toggleDrawerOpen : undefined}
+              />
             </List>
           </Box>
         </Box>
