@@ -3,6 +3,7 @@ import { blueGrey, amber } from '@mui/material/colors';
 
 export const DarkTheme = createTheme({
   palette: {
+    mode: 'dark',
     primary: {
       main: amber[700],
       dark: amber[800],
@@ -18,6 +19,11 @@ export const DarkTheme = createTheme({
     background: {
       default: '#202124',
       paper: '#303134',
+    },
+  },
+  typography: {
+    allVariants: {
+      color: 'white',
     },
   },
 });
