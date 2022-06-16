@@ -15,7 +15,7 @@ export const MenuLateral: React.FC<IHtmlComponentsProps> = ({ children }) => {
   const theme = useTheme();
   const smDown = useMediaQuery(theme.breakpoints.down('sm'));
 
-  const { isDrawerOpen, toggleDrawerOpen } = useDrawerContext();
+  const { isDrawerOpen, toggleDrawerOpen, drawerOptions } = useDrawerContext();
 
   return (
     <>
@@ -42,15 +42,20 @@ export const MenuLateral: React.FC<IHtmlComponentsProps> = ({ children }) => {
               src="https://img.freepik.com/vetores-gratis/perfil-de-avatar-de-homem-no-icone-redondo_24640-14044.jpg?w=740"
             />
           </Box>
+
           <Divider />
+
           <Box flex={1}>
             <List component="nav">
-              <ListItemLink
-                icon="home"
-                label="Página inicial"
-                to="/pagina-inicial"
-                onClick={smDown ? toggleDrawerOpen : undefined}
-              />
+              {drawerOptions.map((drawerOption) => (
+                <ListItemLink
+                  key={drawerOption.path}
+                  icon={drawerOption.icon}
+                  label={drawerOption.label}
+                  to={drawerOption.path}
+                  onClick={smDown ? toggleDrawerOpen : undefined}
+                />
+              ))}
             </List>
           </Box>
         </Box>
