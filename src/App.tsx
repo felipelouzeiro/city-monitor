@@ -1,6 +1,6 @@
 import { BrowserRouter } from 'react-router-dom';
 import { AppRoutes } from './routes';
-import { MenuLateral } from './shared/components/MenuLateral/MenuLateral';
+import { MenuLateral } from './shared/components';
 import { AppThemeProvider, DrawerProvider } from './shared/contexts';
 
 export const App = () => {
