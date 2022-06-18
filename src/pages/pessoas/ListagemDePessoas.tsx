@@ -8,15 +8,18 @@ import {
   PessoaService,
 } from '../../shared/services/api/pessoas/PessoasService';
 import {
+  LinearProgress,
   Paper,
   Table,
   TableBody,
   TableCell,
   TableContainer,
+  TableFooter,
   TableHead,
   TableRow,
 } from '@mui/material';
 import { useDebounce } from '../../shared/hooks';
+import { Environment } from '../../shared/environment';
 
 export const ListagemDePessoas: React.FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -64,7 +67,7 @@ export const ListagemDePessoas: React.FC = () => {
       <TableContainer
         component={Paper}
         variant="outlined"
-        sx={{ margin: 1, padding: 1, width: 'auto' }}
+        sx={{ margin: 1, width: 'auto' }}
       >
         <Table>
           <TableHead>
@@ -83,6 +86,18 @@ export const ListagemDePessoas: React.FC = () => {
               </TableRow>
             ))}
           </TableBody>
+          {totalCount === 0 && !isLoading && (
+            <caption>{Environment.LISTAGEM_VAZIA}</caption>
+          )}
+          <TableFooter>
+            {isLoading && (
+              <TableRow>
+                <TableCell colSpan={3}>
+                  <LinearProgress variant="indeterminate" />
+                </TableCell>
+              </TableRow>
+            )}
+          </TableFooter>
         </Table>
       </TableContainer>
     </LayoutBaseDePagina>
