@@ -13,7 +13,6 @@ export const Dashboard = () => {
         <FerramentasDeDetalhe
           mostrarBotaoNovo
           mostrarBotaoSalvarEVoltar
-          mostrarBotaoSalvarEVoltarCarregando
           mostrarBotaoVoltar
         />
       }
