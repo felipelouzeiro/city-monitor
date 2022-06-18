@@ -8,11 +8,13 @@ import {
   PessoaService,
 } from '../../shared/services/api/pessoas/PessoasService';
 import {
+  LinearProgress,
   Paper,
   Table,
   TableBody,
   TableCell,
   TableContainer,
+  TableFooter,
   TableHead,
   TableRow,
 } from '@mui/material';
@@ -64,7 +66,7 @@ export const ListagemDePessoas: React.FC = () => {
       <TableContainer
         component={Paper}
         variant="outlined"
-        sx={{ margin: 1, padding: 1, width: 'auto' }}
+        sx={{ margin: 1, width: 'auto' }}
       >
         <Table>
           <TableHead>
@@ -83,6 +85,15 @@ export const ListagemDePessoas: React.FC = () => {
               </TableRow>
             ))}
           </TableBody>
+          <TableFooter>
+            {isLoading && (
+              <TableRow>
+                <TableCell colSpan={3}>
+                  <LinearProgress variant="indeterminate" />
+                </TableCell>
+              </TableRow>
+            )}
+          </TableFooter>
         </Table>
       </TableContainer>
     </LayoutBaseDePagina>
