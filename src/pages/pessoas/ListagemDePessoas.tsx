@@ -9,6 +9,7 @@ import {
 } from '../../shared/services/api/pessoas/PessoasService';
 import {
   LinearProgress,
+  Pagination,
   Paper,
   Table,
   TableBody,
@@ -32,10 +33,14 @@ export const ListagemDePessoas: React.FC = () => {
     return searchParams.get('busca') || '';
   }, [searchParams]);
 
+  const pagina = useMemo(() => {
+    return Number(searchParams.get('pagina') || '1');
+  }, [searchParams]);
+
   useEffect(() => {
     setIsLoading(true);
     debounce(() => {
-      PessoaService.getAll(1, busca).then((result) => {
+      PessoaService.getAll(pagina, busca).then((result) => {
         setIsLoading(false);
 
         if (result instanceof Error) {
@@ -48,7 +53,7 @@ export const ListagemDePessoas: React.FC = () => {
         }
       });
     });
-  }, [busca]);
+  }, [busca, pagina]);
 
   return (
     <LayoutBaseDePagina
@@ -59,7 +64,7 @@ export const ListagemDePessoas: React.FC = () => {
           mostrarInputBusca
           textoDaBUsca={busca}
           aoMudarTextoDaBusca={(texto) =>
-            setSearchParams({ busca: texto }, { replace: true })
+            setSearchParams({ busca: texto, pagina: '1' }, { replace: true })
           }
         />
       }
@@ -94,6 +99,19 @@ export const ListagemDePessoas: React.FC = () => {
               <TableRow>
                 <TableCell colSpan={3}>
                   <LinearProgress variant="indeterminate" />
+                </TableCell>
+              </TableRow>
+            )}
+            {totalCount > 0 && totalCount > Environment.LIMITE_DE_LINHAS && (
+              <TableRow>
+                <TableCell colSpan={3}>
+                  <Pagination
+                    page={pagina}
+                    count={Math.ceil(totalCount / Environment.LIMITE_DE_LINHAS)}
+                    onChange={(e, newPage) =>
+                      setSearchParams({ busca, pagina: newPage.toString() })
+                    }
+                  />
                 </TableCell>
               </TableRow>
             )}
