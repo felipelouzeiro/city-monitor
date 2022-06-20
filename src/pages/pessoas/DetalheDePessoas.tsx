@@ -8,9 +8,9 @@ import { FormHandles } from '@unform/core';
 import { VTextField } from '../../shared/forms';
 
 interface IFormData {
-  email: string;
-  cidadeId: string;
   nomeCompleto: string;
+  email: string;
+  cidadeId: number;
 }
 
 export const DetalheDePessoas = () => {
@@ -25,21 +25,47 @@ export const DetalheDePessoas = () => {
   useEffect(() => {
     if (id !== 'nova') {
       setIsLoading(true);
+
       PessoaService.getById(Number(id)).then((result) => {
         setIsLoading(false);
+
         if (result instanceof Error) {
           alert(result.message);
           navigate('/pessoas');
         } else {
-          console.log(result);
           setNome(result.nomeCompleto);
+          console.log(result);
+
+          formRef.current?.setData(result);
         }
       });
     }
   }, [id]);
 
   const handleSave = (dados: IFormData) => {
-    console.log(dados);
+    setIsLoading(true);
+
+    if (id === 'nova') {
+      PessoaService.create(dados).then((result) => {
+        setIsLoading(false);
+
+        if (result instanceof Error) {
+          alert(result.message);
+        } else {
+          navigate(`/pessoas/detalhe/${result}`);
+        }
+      });
+    } else {
+      PessoaService.updateById(Number(id), { id: Number(id), ...dados }).then(
+        (result) => {
+          setIsLoading(false);
+
+          if (result instanceof Error) {
+            alert(result.message);
+          }
+        }
+      );
+    }
   };
 
   const handleDelete = (id: number) => {
@@ -66,17 +92,17 @@ export const DetalheDePessoas = () => {
           mostrarBotaoApagar={id !== 'nova'}
           //
           aoClicarEmSalvar={() => formRef.current?.submitForm()}
-          aoClicarEmSalvarEVoltar={() => () => formRef.current?.submitForm()}
+          aoClicarEmSalvarEVoltar={() => formRef.current?.submitForm()}
           aoClicarEmApagar={() => handleDelete(Number(id))}
           aoClicarEmVoltar={() => navigate('/pessoas')}
           aoClicarEmNovo={() => navigate('/pessoas/detalhe/nova')}
         />
       }
     >
-      <Form ref={formRef} onSubmit={(dados) => handleSave(dados)}>
-        <VTextField name="nomeCompleto" />
-        <VTextField name="email" />
-        <VTextField name="cidadeId" />
+      <Form ref={formRef} onSubmit={handleSave}>
+        <VTextField placeholder="Nome completo" name="nomeCompleto" />
+        <VTextField placeholder="Email" name="email" />
+        <VTextField placeholder="Cidade Id" name="cidadeId" />
       </Form>
     </LayoutBaseDePagina>
   );

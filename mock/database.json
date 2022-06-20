@@ -2,86 +2,86 @@
   "pessoas": [
     {
       "id": 1,
-      "email": "email@email.com",
       "nomeCompleto": "Ana Marciana",
+      "email": "email@email.com",
       "cidadeId": 1
     },
     {
       "id": 3,
-      "email": "email@email.com",
       "nomeCompleto": "Leo Louzeiro",
+      "email": "email@email.com",
       "cidadeId": 3
     },
     {
       "id": 4,
-      "email": "email@email.com",
       "nomeCompleto": "Inaês Silva",
+      "email": "email@email.com",
       "cidadeId": 1
     },
     {
       "id": 5,
-      "email": "email@email.com",
       "nomeCompleto": "Frederico Rocha",
+      "email": "email@email.com",
       "cidadeId": 5
     },
     {
       "id": 6,
-      "email": "email@email.com",
       "nomeCompleto": "Borges Mariolo",
+      "email": "email@email.com",
       "cidadeId": 3
     },
     {
       "id": 7,
-      "email": "email@email.com",
       "nomeCompleto": "Frederico Rocha",
+      "email": "email@email.com",
       "cidadeId": 2
     },
     {
       "id": 8,
-      "email": "email@email.com",
       "nomeCompleto": "Linda Cigana",
+      "email": "email@email.com",
       "cidadeId": 1
     },
     {
       "id": 9,
-      "email": "email@email.com",
       "nomeCompleto": "Alex Emanoel",
+      "email": "email@email.com",
       "cidadeId": 2
     },
     {
       "id": 10,
-      "email": "email@email.com",
       "nomeCompleto": "Frederico Rocha",
+      "email": "email@email.com",
       "cidadeId": 1
     },
     {
       "id": 11,
-      "email": "email@email.com",
       "nomeCompleto": "Maria Valquíria",
+      "email": "email@email.com",
       "cidadeId": 4
     },
     {
       "id": 12,
-      "email": "email@email.com",
       "nomeCompleto": "Frederico Rocha",
+      "email": "email@email.com",
       "cidadeId": 2
     },
     {
       "id": 13,
-      "email": "email@email.com",
       "nomeCompleto": "Caio Pandemize",
+      "email": "email@email.com",
       "cidadeId": 4
     },
     {
       "id": 14,
-      "email": "email@email.com",
       "nomeCompleto": "Joana Lewinsky",
+      "email": "email@email.com",
       "cidadeId": 2
     },
     {
       "id": 15,
-      "email": "email@email.com",
       "nomeCompleto": "Carlos Alves",
+      "email": "email@email.com",
       "cidadeId": 5
     }
   ]
