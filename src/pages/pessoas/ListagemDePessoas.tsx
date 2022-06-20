@@ -69,7 +69,7 @@ export const ListagemDePessoas: React.FC = () => {
           setRows((oldRows) => {
             return [...oldRows.filter((oldRow) => oldRow.id !== id)];
           });
-          alert('Registro apagado com sucesso!');
+          // alert('Registro apagado com sucesso!');
         }
       });
     }
@@ -81,6 +81,7 @@ export const ListagemDePessoas: React.FC = () => {
       barraDeFerramentas={
         <FerramentasDaListagem
           textoBotaoNovo="Nova"
+          aoClicarEmNovo={() => navigate('/pessoas/detalhe/nova')}
           mostrarInputBusca
           textoDaBUsca={busca}
           aoMudarTextoDaBusca={(texto) =>
