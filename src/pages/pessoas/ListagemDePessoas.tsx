@@ -69,7 +69,7 @@ export const ListagemDePessoas: React.FC = () => {
           setRows((oldRows) => {
             return [...oldRows.filter((oldRow) => oldRow.id !== id)];
           });
-          // alert('Registro apagado com sucesso!');
+          alert('Registro apagado com sucesso!');
         }
       });
     }

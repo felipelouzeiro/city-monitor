@@ -38,6 +38,7 @@ export const DetalheDePessoas = () => {
         if (result instanceof Error) {
           alert(result.message);
         } else {
+          alert('Registro apagado com sucesso!');
           navigate('/pessoas');
         }
       });
