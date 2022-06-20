@@ -1,14 +1,23 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { FerramentasDeDetalhe } from '../../shared/components';
 import { LayoutBaseDePagina } from '../../shared/layouts';
 import { PessoaService } from '../../shared/services/api/pessoas/PessoasService';
 import { Form } from '@unform/web';
+import { FormHandles } from '@unform/core';
 import { VTextField } from '../../shared/forms';
+
+interface IFormData {
+  email: string;
+  cidadeId: string;
+  nomeCompleto: string;
+}
 
 export const DetalheDePessoas = () => {
   const { id = 'nova' } = useParams<'id'>();
   const navigate = useNavigate();
+
+  const formRef = useRef<FormHandles>(null);
 
   const [isLoading, setIsLoading] = useState(false);
   const [nome, setNome] = useState('');
@@ -29,8 +38,8 @@ export const DetalheDePessoas = () => {
     }
   }, [id]);
 
-  const handleSave = () => {
-    console.log('Save');
+  const handleSave = (dados: IFormData) => {
+    console.log(dados);
   };
 
   const handleDelete = (id: number) => {
@@ -56,16 +65,18 @@ export const DetalheDePessoas = () => {
           mostrarBotaoNovo={id !== 'nova'}
           mostrarBotaoApagar={id !== 'nova'}
           //
-          aoClicarEmSalvar={() => handleSave}
-          aoClicarEmSalvarEVoltar={() => {}}
+          aoClicarEmSalvar={() => formRef.current?.submitForm()}
+          aoClicarEmSalvarEVoltar={() => () => formRef.current?.submitForm()}
           aoClicarEmApagar={() => handleDelete(Number(id))}
           aoClicarEmVoltar={() => navigate('/pessoas')}
           aoClicarEmNovo={() => navigate('/pessoas/detalhe/nova')}
         />
       }
     >
-      <Form onSubmit={(dados) => console.log(dados)}>
+      <Form ref={formRef} onSubmit={(dados) => handleSave(dados)}>
         <VTextField name="nomeCompleto" />
+        <VTextField name="email" />
+        <VTextField name="cidadeId" />
       </Form>
     </LayoutBaseDePagina>
   );
