@@ -5,12 +5,20 @@ import { LayoutBaseDePagina } from '../../shared/layouts';
 import { PessoaService } from '../../shared/services/api/pessoas/PessoasService';
 import { VTextField, VForm, useVForm } from '../../shared/forms';
 import { Box, Grid, LinearProgress, Paper, Typography } from '@mui/material';
+import * as yup from 'yup';
+import { IVFormErrors } from '../../shared/forms/IVFormErrors';
 
 interface IFormData {
   nomeCompleto: string;
   email: string;
   cidadeId: number;
 }
+
+const formValidationSchema: yup.SchemaOf<IFormData> = yup.object().shape({
+  nomeCompleto: yup.string().required().min(3),
+  email: yup.string().required('').email(),
+  cidadeId: yup.number().required(),
+});
 
 export const DetalheDePessoas = () => {
   const { id = 'nova' } = useParams<'id'>();
@@ -48,38 +56,54 @@ export const DetalheDePessoas = () => {
   }, [id]);
 
   const handleSave = (dados: IFormData) => {
-    setIsLoading(true);
+    formValidationSchema
+      .validate(dados, { abortEarly: false })
+      .then((dadosValidados) => {
+        setIsLoading(true);
 
-    if (id === 'nova') {
-      PessoaService.create(dados).then((result) => {
-        setIsLoading(false);
+        if (id === 'nova') {
+          PessoaService.create(dadosValidados).then((result) => {
+            setIsLoading(false);
 
-        if (result instanceof Error) {
-          alert(result.message);
-        } else {
-          if (isSaveAndClose()) {
-            navigate('/pessoas');
-          } else {
-            navigate(`pessoas/detalhe/${result}`);
-          }
-          navigate(`/pessoas/detalhe/${result}`);
-        }
-      });
-    } else {
-      PessoaService.updateById(Number(id), { id: Number(id), ...dados }).then(
-        (result) => {
-          setIsLoading(false);
-
-          if (result instanceof Error) {
-            alert(result.message);
-          } else {
-            if (isSaveAndClose()) {
-              navigate('/pessoas');
+            if (result instanceof Error) {
+              alert(result.message);
+            } else {
+              if (isSaveAndClose()) {
+                navigate('/pessoas');
+              } else {
+                navigate(`pessoas/detalhe/${result}`);
+              }
+              navigate(`/pessoas/detalhe/${result}`);
             }
-          }
+          });
+        } else {
+          PessoaService.updateById(Number(id), {
+            id: Number(id),
+            ...dadosValidados,
+          }).then((result) => {
+            setIsLoading(false);
+
+            if (result instanceof Error) {
+              alert(result.message);
+            } else {
+              if (isSaveAndClose()) {
+                navigate('/pessoas');
+              }
+            }
+          });
         }
-      );
-    }
+      })
+      .catch((errors: yup.ValidationError) => {
+        const validateErrors: IVFormErrors = {};
+
+        errors.inner.forEach((error) => {
+          if (!error.path) return;
+
+          validateErrors[error.path] = error.message;
+        });
+
+        formRef.current?.setErrors(validateErrors);
+      });
   };
 
   const handleDelete = (id: number) => {
