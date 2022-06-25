@@ -3,9 +3,8 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { FerramentasDeDetalhe } from '../../shared/components';
 import { LayoutBaseDePagina } from '../../shared/layouts';
 import { PessoaService } from '../../shared/services/api/pessoas/PessoasService';
-import { Form } from '@unform/web';
 import { FormHandles } from '@unform/core';
-import { VTextField } from '../../shared/forms';
+import { VTextField, VForm } from '../../shared/forms';
 import { Box, Grid, LinearProgress, Paper, Typography } from '@mui/material';
 
 interface IFormData {
@@ -106,7 +105,7 @@ export const DetalheDePessoas = () => {
         />
       }
     >
-      <Form ref={formRef} onSubmit={handleSave}>
+      <VForm ref={formRef} onSubmit={handleSave}>
         <Box
           margin={1}
           display="flex"
@@ -158,7 +157,7 @@ export const DetalheDePessoas = () => {
             </Grid>
           </Grid>
         </Box>
-      </Form>
+      </VForm>
     </LayoutBaseDePagina>
   );
 };
