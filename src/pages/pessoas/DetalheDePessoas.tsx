@@ -1,10 +1,9 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { FerramentasDeDetalhe } from '../../shared/components';
 import { LayoutBaseDePagina } from '../../shared/layouts';
 import { PessoaService } from '../../shared/services/api/pessoas/PessoasService';
-import { FormHandles } from '@unform/core';
-import { VTextField, VForm } from '../../shared/forms';
+import { VTextField, VForm, useVForm } from '../../shared/forms';
 import { Box, Grid, LinearProgress, Paper, Typography } from '@mui/material';
 
 interface IFormData {
@@ -17,7 +16,7 @@ export const DetalheDePessoas = () => {
   const { id = 'nova' } = useParams<'id'>();
   const navigate = useNavigate();
 
-  const formRef = useRef<FormHandles>(null);
+  const { formRef, save, saveAndClose, isSaveAndClose } = useVForm();
 
   const [isLoading, setIsLoading] = useState(false);
   const [nome, setNome] = useState('');
@@ -58,6 +57,11 @@ export const DetalheDePessoas = () => {
         if (result instanceof Error) {
           alert(result.message);
         } else {
+          if (isSaveAndClose()) {
+            navigate('/pessoas');
+          } else {
+            navigate(`pessoas/detalhe/${result}`);
+          }
           navigate(`/pessoas/detalhe/${result}`);
         }
       });
@@ -68,6 +72,10 @@ export const DetalheDePessoas = () => {
 
           if (result instanceof Error) {
             alert(result.message);
+          } else {
+            if (isSaveAndClose()) {
+              navigate('/pessoas');
+            }
           }
         }
       );
@@ -97,8 +105,8 @@ export const DetalheDePessoas = () => {
           mostrarBotaoNovo={id !== 'nova'}
           mostrarBotaoApagar={id !== 'nova'}
           //
-          aoClicarEmSalvar={() => formRef.current?.submitForm()}
-          aoClicarEmSalvarEVoltar={() => formRef.current?.submitForm()}
+          aoClicarEmSalvar={save}
+          aoClicarEmSalvarEVoltar={saveAndClose}
           aoClicarEmApagar={() => handleDelete(Number(id))}
           aoClicarEmVoltar={() => navigate('/pessoas')}
           aoClicarEmNovo={() => navigate('/pessoas/detalhe/nova')}
