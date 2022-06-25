@@ -40,6 +40,12 @@ export const DetalheDePessoas = () => {
           formRef.current?.setData(result);
         }
       });
+    } else {
+      formRef.current?.setData({
+        nomeCompleto: '',
+        email: '',
+        cidadeId: '',
+      });
     }
   }, [id]);
 
