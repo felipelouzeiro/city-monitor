@@ -84,5 +84,11 @@
       "nomeCompleto": "Carlos Alves",
       "cidadeId": 5
     }
+  ],
+  "cidades": [
+    {
+      "id": 1,
+      "nome": "CidadeA"
+    }
   ]
 }
