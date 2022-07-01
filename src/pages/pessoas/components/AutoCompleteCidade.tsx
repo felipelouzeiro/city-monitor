@@ -1,4 +1,5 @@
 import { Autocomplete, CircularProgress, TextField } from '@mui/material';
+import { useField } from '@unform/core';
 import { useEffect, useMemo, useState } from 'react';
 import { useDebounce } from '../../../shared/hooks';
 import { CidadesService } from '../../../shared/services/api/cidades/CidadesService';
@@ -15,13 +16,25 @@ interface IAutoCompleteCidadeProps {
 export const AutoCompleteCidade: React.FC<IAutoCompleteCidadeProps> = ({
   isExternalLoading = false,
 }) => {
+  const { fieldName, registerField, defaultValue, error, clearError } =
+    useField('cidadeId');
   const [options, setOptions] = useState<TAutoCompleteOption[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [busca, setBusca] = useState('');
 
   const { debounce } = useDebounce();
 
-  const [selectedId, setSelectedId] = useState<number | undefined>(undefined);
+  const [selectedId, setSelectedId] = useState<number | undefined>(
+    defaultValue
+  );
+
+  useEffect(() => {
+    registerField({
+      name: fieldName,
+      getValue: () => selectedId,
+      setValue: (_, newSelectedId) => setSelectedId(newSelectedId),
+    });
+  }, [registerField, fieldName, selectedId]);
 
   useEffect(() => {
     setIsLoading(true);
@@ -43,9 +56,11 @@ export const AutoCompleteCidade: React.FC<IAutoCompleteCidadeProps> = ({
   }, [busca]);
 
   const autoCompleteSelectedOption = useMemo(() => {
-    if (!selectedId) return undefined;
+    if (!selectedId) return null;
 
     const selectedOption = options.find((opcao) => opcao.id == selectedId);
+    if (!selectedOption) return null;
+
     return selectedOption;
   }, [selectedId, options]);
 
@@ -69,8 +84,16 @@ export const AutoCompleteCidade: React.FC<IAutoCompleteCidadeProps> = ({
       onChange={(e, newValue) => {
         setSelectedId(newValue?.id);
         setBusca('');
+        clearError();
       }}
-      renderInput={(params) => <TextField {...params} label="Cidade" />}
+      renderInput={(params) => (
+        <TextField
+          {...params}
+          label="Cidade"
+          error={!!error}
+          helperText={error}
+        />
+      )}
     />
   );
 };
