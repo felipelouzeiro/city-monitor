@@ -1,28 +1,10 @@
 {
   "pessoas": [
     {
-      "id": 1,
-      "nomeCompleto": "Ana Betania",
-      "email": "email@email.com",
-      "cidadeId": "1"
-    },
-    {
       "id": 3,
       "email": "email@email.com",
       "nomeCompleto": "Leo Louzeiro",
       "cidadeId": 3
-    },
-    {
-      "id": 4,
-      "email": "email@email.com",
-      "nomeCompleto": "Inaês Silva",
-      "cidadeId": 1
-    },
-    {
-      "id": 5,
-      "email": "email@email.com",
-      "nomeCompleto": "Frederico Rocha",
-      "cidadeId": 5
     },
     {
       "id": 6,
@@ -37,28 +19,10 @@
       "cidadeId": 2
     },
     {
-      "id": 8,
-      "email": "email@email.com",
-      "nomeCompleto": "Linda Cigana",
-      "cidadeId": 1
-    },
-    {
       "id": 9,
       "email": "email@email.com",
       "nomeCompleto": "Alex Emanoel",
       "cidadeId": 2
-    },
-    {
-      "id": 10,
-      "email": "email@email.com",
-      "nomeCompleto": "Frederico Rocha",
-      "cidadeId": 1
-    },
-    {
-      "id": 11,
-      "email": "email@email.com",
-      "nomeCompleto": "Maria Valquíria",
-      "cidadeId": 4
     },
     {
       "id": 12,
@@ -67,28 +31,36 @@
       "cidadeId": 2
     },
     {
-      "id": 13,
-      "email": "email@email.com",
-      "nomeCompleto": "Caio Pandemize",
-      "cidadeId": 4
-    },
-    {
       "id": 14,
       "email": "email@email.com",
       "nomeCompleto": "Joana Lewinsky",
       "cidadeId": 2
-    },
-    {
-      "id": 15,
-      "email": "email@email.com",
-      "nomeCompleto": "Carlos Alves",
-      "cidadeId": 5
     }
   ],
   "cidades": [
     {
-      "id": 1,
-      "nome": "CidadeA"
+      "nome": "Goiânia",
+      "id": 2
+    },
+    {
+      "nome": "Parnaíba",
+      "id": 3
+    },
+    {
+      "nome": "São Paulo",
+      "id": 4
+    },
+    {
+      "nome": "Sergipe",
+      "id": 5
+    },
+    {
+      "nome": "Icó",
+      "id": 6
+    },
+    {
+      "nome": "Braavos",
+      "id": 7
     }
   ]
 }
