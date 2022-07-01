@@ -4,6 +4,7 @@ import {
   Card,
   CardActions,
   CardContent,
+  CircularProgress,
   TextField,
   Typography,
 } from '@mui/material';
@@ -16,25 +17,37 @@ interface ILoginProps {
 }
 
 const loginSchema = yup.object().shape({
-  email: yup.string().email().required(),
-  password: yup.string().min(5).required(),
+  email: yup
+    .string()
+    .email('insira um email válido!')
+    .required('Campo obrigatório!'),
+  password: yup
+    .string()
+    .min(5, 'Senha precisa de pelo menos 5 caracteres')
+    .required('Campo obrigatório!'),
 });
 
 export const Login: React.FC<ILoginProps> = ({ children }) => {
   const { isAuthenticated, login } = useAuthContext();
 
+  const [isLoading, setIsLoading] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
 
   const handleSubmit = () => {
+    setIsLoading(true);
+
     loginSchema
       .validate({ email, password }, { abortEarly: false })
       .then((dadosValidados) => {
-        login(dadosValidados.email, dadosValidados.password);
+        login(dadosValidados.email, dadosValidados.password).then(() => {
+          setIsLoading(false);
+        });
       })
       .catch((errors: yup.ValidationError) => {
+        setIsLoading(false);
         errors.inner.forEach((error) => {
           if (error.path === 'email') {
             setEmailError(error.message);
@@ -61,11 +74,13 @@ export const Login: React.FC<ILoginProps> = ({ children }) => {
             <Typography variant="h6" align="center">
               Identifique-se
             </Typography>
+
             <TextField
               fullWidth
               label="Email"
               type="email"
               value={email}
+              disabled={isLoading}
               error={!!emailError}
               helperText={emailError}
               onKeyDown={() => setEmailError('')}
@@ -76,6 +91,7 @@ export const Login: React.FC<ILoginProps> = ({ children }) => {
               label="Senha"
               type="password"
               value={password}
+              disabled={isLoading}
               error={!!passwordError}
               helperText={passwordError}
               onKeyDown={() => setPasswordError('')}
@@ -85,7 +101,20 @@ export const Login: React.FC<ILoginProps> = ({ children }) => {
         </CardContent>
         <CardActions>
           <Box width="100%" display="flex" justifyContent="center">
-            <Button variant="contained" onClick={handleSubmit}>
+            <Button
+              variant="contained"
+              onClick={handleSubmit}
+              disabled={isLoading}
+              endIcon={
+                isLoading ? (
+                  <CircularProgress
+                    variant="indeterminate"
+                    color="inherit"
+                    size={20}
+                  />
+                ) : undefined
+              }
+            >
               Entrar
             </Button>
           </Box>
