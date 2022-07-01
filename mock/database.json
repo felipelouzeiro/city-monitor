@@ -176,5 +176,8 @@
       "nome": "Braavos",
       "id": 7
     }
-  ]
+  ],
+  "auth": {
+    "accessToken": "aaaaaaaaa.bbbbbbbb.cccccccc"
+  }
 }
