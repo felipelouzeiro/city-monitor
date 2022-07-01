@@ -8,7 +8,13 @@ type TAutoCompleteOption = {
   label: string;
 };
 
-export const AutoCompleteCidade: React.FC = () => {
+interface IAutoCompleteCidadeProps {
+  isExternalLoading?: boolean;
+}
+
+export const AutoCompleteCidade: React.FC<IAutoCompleteCidadeProps> = ({
+  isExternalLoading = false,
+}) => {
   const [options, setOptions] = useState<TAutoCompleteOption[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [busca, setBusca] = useState('');
@@ -48,8 +54,13 @@ export const AutoCompleteCidade: React.FC = () => {
       value={autoCompleteSelectedOption}
       options={options}
       loading={isLoading}
+      disabled={isExternalLoading}
       onInputChange={(e, newValue) => setBusca(newValue)}
-      popupIcon={isLoading ? <CircularProgress size={28} /> : undefined}
+      popupIcon={
+        isExternalLoading || isLoading ? (
+          <CircularProgress size={28} />
+        ) : undefined
+      }
       onChange={(e, newValue) => {
         setSelectedId(newValue?.id);
         setBusca('');
