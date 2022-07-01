@@ -1,6 +1,7 @@
 import {
   createContext,
   useCallback,
+  useContext,
   useEffect,
   useMemo,
   useState,
@@ -64,6 +65,8 @@ export const AuthProvider: React.FC<IAuthProviderProps> = ({ children }) => {
     </AuthContext.Provider>
   );
 };
+
+export const useAuthContext = () => useContext(AuthContext);
 
 // funções useCallbacks que são repassadas por contexto otimizam a aplicação
 // '!!accessToken' é o mesmo que 'accessToken === undefined'
