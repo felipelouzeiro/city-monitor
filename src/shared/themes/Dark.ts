@@ -1,19 +1,19 @@
 import { createTheme } from '@mui/material';
-import { blueGrey, amber } from '@mui/material/colors';
+import { deepPurple, deepOrange } from '@mui/material/colors';
 
 export const DarkTheme = createTheme({
   palette: {
     mode: 'dark',
     primary: {
-      main: amber[700],
-      dark: amber[800],
-      light: amber[500],
+      main: deepPurple[700],
+      dark: deepPurple[800],
+      light: deepPurple[500],
       contrastText: '#ffffff',
     },
     secondary: {
-      main: blueGrey[500],
-      dark: blueGrey[400],
-      light: blueGrey[300],
+      main: deepOrange[500],
+      dark: deepOrange[400],
+      light: deepOrange[300],
       contrastText: '#ffffff',
     },
     background: {
