@@ -43,7 +43,6 @@ export const AutoCompleteCidade: React.FC<IAutoCompleteCidadeProps> = ({
         setIsLoading(false);
 
         if (result instanceof Error) {
-          // alert(result.message);
         } else {
           console.log(result);
 
