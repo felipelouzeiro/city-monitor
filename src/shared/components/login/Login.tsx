@@ -83,6 +83,7 @@ export const Login: React.FC<ILoginProps> = ({ children }) => {
               disabled={isLoading}
               error={!!emailError}
               helperText={emailError}
+              placeholder="Ex: email@email.com"
               onKeyDown={() => setEmailError('')}
               onChange={(e) => setEmail(e.target.value)}
             />
@@ -94,6 +95,7 @@ export const Login: React.FC<ILoginProps> = ({ children }) => {
               disabled={isLoading}
               error={!!passwordError}
               helperText={passwordError}
+              placeholder="Ex: abacate123"
               onKeyDown={() => setPasswordError('')}
               onChange={(e) => setPassword(e.target.value)}
             />
